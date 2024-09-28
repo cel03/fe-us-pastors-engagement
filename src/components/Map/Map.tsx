@@ -4,11 +4,11 @@ import CustomGeographies from './CustomGeographies';
 
 import type { MapProps } from './types';
 
-const Map: React.FC<MapProps> = ({ geography, pastorHQ }) => {
+const Map: React.FC<MapProps> = ({ geography, pastorHQ, engagementData }) => {
   return (
     <div id="map">
       <ComposableMap projection="geoAlbersUsa">
-        <CustomGeographies geography={geography} pastorHQ={pastorHQ} />
+        <CustomGeographies geography={geography} pastorHQ={pastorHQ} engagementData={engagementData} />
       </ComposableMap>
     </div>
   );

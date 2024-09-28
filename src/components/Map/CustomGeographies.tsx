@@ -1,16 +1,24 @@
 import React from 'react';
-import { useGeographies, Geography, Marker } from 'react-simple-maps';
+import { useGeographies, Geography, Marker, Line } from 'react-simple-maps';
 import getCentroid from '@helpers/get-centroid';
 import { getStateName } from '@helpers/get-state-name';
 import { STYLES_MAP } from '@constants/map-config';
 
 import type { MapProps } from './types';
 
-const CustomGeographies: React.FC<MapProps> = ({ geography, pastorHQ }) => {
+const CustomGeographies: React.FC<MapProps> = ({ geography, pastorHQ, engagementData }) => {
   const { geographies } = useGeographies({ geography });
 
+  const uniqueEngagementStates = new Set(engagementData.map((data) => getStateName(data.state)));
   const pastorHQState = getStateName(pastorHQ.headquarters);
   const markerCoordinates = getCentroid(pastorHQState, geographies);
+
+  const getAnnotationCoordinates = () => {
+    return Array.from(uniqueEngagementStates).map((state) => {
+      return { coordinates: getCentroid(state, geographies), state };
+    });
+  };
+  const annotationCoordinates = getAnnotationCoordinates();
 
   return (
     <>
@@ -28,6 +36,21 @@ const CustomGeographies: React.FC<MapProps> = ({ geography, pastorHQ }) => {
           <circle r={5} fill="#F00" stroke="#FFF" strokeWidth={2} />
         </Marker>
       )}
+      {markerCoordinates &&
+        annotationCoordinates.map((annotation) => (
+          <React.Fragment key={annotation.state}>
+            <Line
+              key={`${annotation.state}-line`}
+              from={markerCoordinates}
+              to={annotation.coordinates}
+              stroke="#000"
+              strokeWidth={1}
+            />
+            <Marker key={`${annotation.state}-marker`} coordinates={annotation.coordinates}>
+              <circle r={5} fill="blue" stroke="#FFF" strokeWidth={2} />
+            </Marker>
+          </React.Fragment>
+        ))}
     </>
   );
 };
