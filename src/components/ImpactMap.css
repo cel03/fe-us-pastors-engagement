@@ -1,0 +1,44 @@
+.impact-map {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Total Reach Styles */
+.impact-map__total-reach {
+  display: flex;
+  flex-direction: column;
+}
+
+.impact-map__total-reach > * {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.impact-map__total-reach__label {
+  font-size: 1rem;
+}
+
+.impact-map__total-reach__count {
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+
+/* Pastor Info Styles */
+.impact-map__pastor-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.impact-map__pastor-info__details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.impact-map__pastor-info__details > h2 {
+  margin: 0;
+}
