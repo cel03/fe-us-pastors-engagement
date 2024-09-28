@@ -1,11 +1,16 @@
 import React from 'react';
-import { useGeographies, Geography } from 'react-simple-maps';
-import { STYLES_MAP } from '../../constants/map-config';
+import { useGeographies, Geography, Marker } from 'react-simple-maps';
+import getCentroid from '@helpers/get-centroid';
+import { getStateName } from '@helpers/get-state-name';
+import { STYLES_MAP } from '@constants/map-config';
 
 import type { MapProps } from './types';
 
-const CustomGeographies: React.FC<MapProps> = ({ geography }) => {
+const CustomGeographies: React.FC<MapProps> = ({ geography, pastorHQ }) => {
   const { geographies } = useGeographies({ geography });
+
+  const pastorHQState = getStateName(pastorHQ.headquarters);
+  const markerCoordinates = getCentroid(pastorHQState, geographies);
 
   return (
     <>
@@ -18,6 +23,11 @@ const CustomGeographies: React.FC<MapProps> = ({ geography }) => {
           />
         );
       })}
+      {markerCoordinates && (
+        <Marker coordinates={markerCoordinates}>
+          <circle r={5} fill="#F00" stroke="#FFF" strokeWidth={2} />
+        </Marker>
+      )}
     </>
   );
 };
