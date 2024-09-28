@@ -6,4 +6,5 @@ export interface MapProps {
   geography: GeographiesProps['geography'];
   pastorHQ: PastorData;
   engagementData: EngagementData[];
+  onHover: (content: string) => void;
 }
