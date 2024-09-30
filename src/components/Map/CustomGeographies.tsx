@@ -1,10 +1,11 @@
 import React from 'react';
-import { useGeographies, Geography, Marker, Line } from 'react-simple-maps';
+import { useGeographies, Geography, Marker } from 'react-simple-maps';
 import getCentroid from '@helpers/get-centroid';
 import { getStateName } from '@helpers/get-state-name';
 import { getEngagementCountPerState } from '@helpers/get-engagement-count';
 import { STYLES_MAP } from '@constants/map-config';
 import { HeadquartersMarker } from './HeadquartersMarker';
+import { CurvedLine } from './CurvedLine';
 
 import type { MapProps } from './types';
 
@@ -46,19 +47,13 @@ const CustomGeographies: React.FC<MapProps> = ({ geography, pastorHQ, engagement
       {markerCoordinates &&
         annotationCoordinates.map((annotation) => (
           <React.Fragment key={annotation.state}>
-            <Line
-              key={`${annotation.state}-line`}
-              from={markerCoordinates}
-              to={annotation.coordinates}
-              stroke="#000"
-              strokeWidth={1}
-            />
+            <CurvedLine from={markerCoordinates} to={annotation.coordinates} color="#000" />
             <Marker key={`${annotation.state}-marker`} coordinates={annotation.coordinates}>
               <circle r={5} fill="blue" stroke="#FFF" strokeWidth={2} />
             </Marker>
           </React.Fragment>
         ))}
-      {markerCoordinates && <HeadquartersMarker coordinates={markerCoordinates} pastorHQ={pastorHQ} />}
+      {markerCoordinates && <HeadquartersMarker coordinates={markerCoordinates} />}
     </>
   );
 };
