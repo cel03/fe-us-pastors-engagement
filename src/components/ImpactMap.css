@@ -30,6 +30,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
+  column-gap: 0.5rem;
 }
 
 .impact-map__pastor-info__details {

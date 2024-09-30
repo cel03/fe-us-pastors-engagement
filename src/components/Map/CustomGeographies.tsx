@@ -4,6 +4,7 @@ import getCentroid from '@helpers/get-centroid';
 import { getStateName } from '@helpers/get-state-name';
 import { getEngagementCountPerState } from '@helpers/get-engagement-count';
 import { STYLES_MAP } from '@constants/map-config';
+import { HeadquartersMarker } from './HeadquartersMarker';
 
 import type { MapProps } from './types';
 
@@ -42,11 +43,6 @@ const CustomGeographies: React.FC<MapProps> = ({ geography, pastorHQ, engagement
           />
         );
       })}
-      {markerCoordinates && (
-        <Marker coordinates={markerCoordinates}>
-          <circle r={5} fill="#F00" stroke="#FFF" strokeWidth={2} />
-        </Marker>
-      )}
       {markerCoordinates &&
         annotationCoordinates.map((annotation) => (
           <React.Fragment key={annotation.state}>
@@ -62,6 +58,7 @@ const CustomGeographies: React.FC<MapProps> = ({ geography, pastorHQ, engagement
             </Marker>
           </React.Fragment>
         ))}
+      {markerCoordinates && <HeadquartersMarker coordinates={markerCoordinates} pastorHQ={pastorHQ} />}
     </>
   );
 };

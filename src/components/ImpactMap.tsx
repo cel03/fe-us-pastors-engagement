@@ -1,6 +1,8 @@
 import React from 'react';
 import { Tooltip } from 'react-tooltip';
 import { useQuery } from '@tanstack/react-query';
+import { Avatar } from '@mui/material';
+import { blue } from '@mui/material/colors';
 import usaMap from '@assets/geo-json/usa-map.json';
 import { pastorHQ } from '@mockdata/pastor-data';
 import fetchEngagementData from '../services/engagementData';
@@ -30,7 +32,7 @@ const ImpactMap: React.FC = () => {
   return (
     <div className="impact-map">
       <div className="impact-map__pastor-info">
-        {/* <img src={pastorHQ.image} alt={pastorHQ.name} /> */}
+        <Avatar src="https://avatar.iran.liara.run/public/boy" sx={{ border: `4px solid ${blue[900]}` }} />
         <div className="impact-map__pastor-info__details">
           <h2>{pastorHQ.name}</h2>
         </div>
