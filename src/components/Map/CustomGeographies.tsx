@@ -17,9 +17,11 @@ const CustomGeographies: React.FC<MapProps> = ({ geography, pastorHQ, engagement
   const markerCoordinates = getCentroid(pastorHQState, geographies);
 
   const getAnnotationCoordinates = () => {
-    return Array.from(uniqueEngagementStates).map((state) => {
-      return { coordinates: getCentroid(state, geographies), state };
-    });
+    return Array.from(uniqueEngagementStates)
+      .filter((state) => state !== pastorHQState && state !== 'Hawaii') // Hawaii line gets an error
+      .map((state) => {
+        return { coordinates: getCentroid(state, geographies), state };
+      });
   };
   const annotationCoordinates = getAnnotationCoordinates();
 
