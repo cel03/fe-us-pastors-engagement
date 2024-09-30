@@ -43,3 +43,9 @@
 .impact-map__pastor-info__details > h2 {
   margin: 0;
 }
+
+.impact-map__tooltip {
+  > span:first-child {
+    font-weight: 600;
+  }
+}

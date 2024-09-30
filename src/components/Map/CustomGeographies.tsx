@@ -38,7 +38,7 @@ const CustomGeographies: React.FC<MapProps> = ({ geography, pastorHQ, engagement
             geography={geo}
             style={{ default: STYLES_MAP.default, pressed: STYLES_MAP.pressed, hover: STYLES_MAP.hover }}
             onMouseEnter={() => {
-              onHover(`${stateName}, Reach: ${engagementCount}`);
+              onHover(`${stateName},${engagementCount}`);
             }}
             onMouseLeave={() => onHover('')}
           />

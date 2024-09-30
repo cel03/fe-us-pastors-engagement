@@ -42,7 +42,22 @@ const ImpactMap: React.FC = () => {
         <span className="impact-map__total-reach__label">Total Reach</span>
         <span className="impact-map__total-reach__count">{engagementData.length}</span>
       </div>
-      <Tooltip anchorSelect="#map" content={tooltipContent} float />
+      <Tooltip
+        anchorSelect="#map"
+        content={tooltipContent}
+        float
+        render={({ content }) => {
+          if (!content) return undefined;
+          const [state, count] = content?.split(',');
+          return (
+            <div className="impact-map__tooltip">
+              <span>{state}</span>
+              <br />
+              <span>{count}</span>
+            </div>
+          );
+        }}
+      />
     </div>
   );
 };
