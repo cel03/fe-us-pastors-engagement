@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Tooltip } from 'react-tooltip';
+import { useQuery } from '@tanstack/react-query';
 import usaMap from '@assets/geo-json/usa-map.json';
 import { pastorHQ } from '@mockdata/pastor-data';
-import { engagementData as engagementMockData } from '@mockdata/engagement-data';
+import fetchEngagementData from '../services/engagementData';
 import Map from './Map';
 
 import type { EngagementData } from './types';
@@ -11,11 +12,20 @@ import './ImpactMap.css';
 
 const ImpactMap: React.FC = () => {
   const [tooltipContent, setTooltipContent] = React.useState('');
-  const [engagementData, setEngagementData] = useState<EngagementData[]>([]);
 
-  useEffect(() => {
-    setEngagementData(engagementMockData);
-  }, []);
+  const {
+    data: engagementData,
+    isLoading,
+    error,
+  } = useQuery<EngagementData[]>({
+    queryKey: ['engagementData'],
+    queryFn: fetchEngagementData,
+    refetchInterval: 60000,
+  });
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>An error occurred.</div>;
+  if (!engagementData) return <div>No data available</div>;
 
   return (
     <div className="impact-map">
